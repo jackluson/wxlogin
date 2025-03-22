@@ -16,7 +16,7 @@ type Donation = {
 };
 
 // 开发模式标志，设置为 true 可以跳过登录验证
-const DEV_MODE = true;
+const DEV_MODE = process.env.NEXT_PUBLIC_DEV_MODE === 'true';
 
 export default function Dashboard() {
   const [user, setUser] = useState<UserInfo | null>(null);
