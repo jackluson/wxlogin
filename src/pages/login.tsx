@@ -65,7 +65,7 @@ export default function Login() {
             </p>
             <div className="flex justify-center">
               <Image 
-                src="/qrcode.png" 
+                src="/images/qrcode.png" 
                 width={200} 
                 height={200} 
                 alt="公众号二维码" 
