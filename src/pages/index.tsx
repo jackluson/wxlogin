@@ -1,13 +1,20 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
+// 与 dashboard.tsx 中保持一致的开发模式标志
+const DEV_MODE = true;
+
 export default function Home() {
   const router = useRouter();
   
   useEffect(() => {
-    // Check if user is already logged in
-    const token = localStorage.getItem('auth_token');
+    // 开发模式直接进入仪表盘
+    if (DEV_MODE) {
+      router.replace('/dashboard');
+      return;
+    }
     
+    const token = localStorage.getItem('auth_token');
     if (token) {
       router.replace('/dashboard');
     } else {

@@ -113,7 +113,7 @@ wxlogin/
 │   │   └── login.tsx                  # 登录页面
 │   └── styles/
 │       └── globals.css                # 全局样式（Tailwind CSS）
-├── public/
+├── public/images
 │   └── qrcode.png                     # 公众号二维码图片
 ├── .env.example                       # 环境变量示例
 ├── docker-compose.yml                 # Docker Compose配置
