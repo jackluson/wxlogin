@@ -25,7 +25,7 @@
 1. 克隆仓库到本地
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/liyaodev/wxlogin.git
 cd wxlogin
 ```
 
