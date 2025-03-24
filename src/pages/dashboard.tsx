@@ -25,9 +25,12 @@ export default function Dashboard() {
   
   // Mock donation data
   const donations: Donation[] = [
+    { name: '*龙', amount: 1, date: '2025-3-24' },
+    { name: 'P*N', amount: 6, date: '2025-3-24' },
+    { name: 'g*l', amount: 5, date: '2025-3-24' },
     { name: '李**', amount: 10, date: '2025-3-22' },
-    { name: '随**', amount: 5, date: '2025-3-21' },
     { name: '肖**', amount: 66, date: '2025-3-21' },
+    { name: '随**', amount: 5, date: '2025-3-21' },
   ];
   
   useEffect(() => {
