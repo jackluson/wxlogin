@@ -7,7 +7,7 @@ import { parseStringPromise } from 'xml2js';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
     // WeChat server verification request
-    console.log('query:', req.query);
+    console.log('get query:', req.query);
     // console.log('WECHAT_TOKEN:', process.env.WECHAT_TOKEN);
     const { signature, timestamp, nonce, echostr } = req.query;
     console.log('token:', process.env.WECHAT_TOKEN);
@@ -28,10 +28,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   
   if (req.method === 'POST') {
     // Handle WeChat event push
-    console.log('query:', req.query);
+    console.log('post query:', req.query);
     // console.log('WECHAT_TOKEN:', process.env.WECHAT_TOKEN);
     const { signature, timestamp, nonce } = req.query;
-    
+    const isInWechatCloud = process.env.WECHAT_CLOUD == '1';
+    console.log("isInWechatCloud", isInWechatCloud);
     if (
       typeof signature === 'string' &&
       typeof timestamp === 'string' &&
@@ -41,12 +42,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (!validateSignature(signature, timestamp, nonce, token)) {
         return res.status(401).send('Invalid signature');
       }
-      
       try {
         // Get raw XML body
         const rawBody = await getRawBody(req);
         const xmlBody = rawBody.toString('utf-8');
-        
+        console.log('rawBody:', rawBody);
         // Parse XML data
         const xmlData = await parseStringPromise(xmlBody, { explicitArray: false });
         const message = xmlData.xml;
@@ -77,6 +77,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         
         // Default reply
+        return res.status(200).send('success');
+      } catch (error) {
+        console.error('Error handling WeChat event:', error);
+        return res.status(500).send('Internal Server Error');
+      }
+    } else if(isInWechatCloud) {
+      try {
+        // Get raw XML body
+        const rawBody = await getRawBody(req);
+        const xmlBody = rawBody.toString('utf-8');
+        console.log('xmlBody:', xmlBody);
         return res.status(200).send('success');
       } catch (error) {
         console.error('Error handling WeChat event:', error);
