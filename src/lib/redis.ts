@@ -1,12 +1,13 @@
 import { createClient } from 'redis';
 
 console.log("process.env.REDIS_URL", process.env.REDIS_URL);
+const redis_url = process.env.REDIS_URL;
 const redisClient = createClient({
-  url: process.env.REDIS_URL || 'redis://redis:6379'
+  url: redis_url || 'redis://redis:6379'
 });
 
-redisClient.on('error', (err) => console.log('Redis Client Error', err));
-
+// redisClient.on('error', (err) => console.log('Redis Client Error', err));
+redisClient.on('connected', (res) => console.log('connected:', res));
 // Connect to Redis when the server starts
 let connected = false;
 async function connectIfNeeded() {
@@ -16,15 +17,17 @@ async function connectIfNeeded() {
     connected = true;
   }
 }
+// connectIfNeeded().then((res) => {console.log('Redis client connected', res)})
+
 
 // Store verification code with user info
 export async function storeVerificationCode(code: string, userInfo: any, expiryInSeconds = 300) {
-  // await connectIfNeeded();
-  // await redisClient.set(
-  //   `wechat:verification:${code}`,
-  //   JSON.stringify(userInfo),
-  //   { EX: expiryInSeconds }
-  // );
+  await connectIfNeeded();
+  await redisClient.set(
+    `wechat:verification:${code}`,
+    JSON.stringify(userInfo),
+    { EX: expiryInSeconds }
+  );
 }
 
 // Get user info by verification code
