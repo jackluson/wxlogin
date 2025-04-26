@@ -19,12 +19,12 @@ async function connectIfNeeded() {
 
 // Store verification code with user info
 export async function storeVerificationCode(code: string, userInfo: any, expiryInSeconds = 300) {
-  await connectIfNeeded();
-  await redisClient.set(
-    `wechat:verification:${code}`,
-    JSON.stringify(userInfo),
-    { EX: expiryInSeconds }
-  );
+  // await connectIfNeeded();
+  // await redisClient.set(
+  //   `wechat:verification:${code}`,
+  //   JSON.stringify(userInfo),
+  //   { EX: expiryInSeconds }
+  // );
 }
 
 // Get user info by verification code
