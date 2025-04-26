@@ -25,7 +25,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
     return res.status(401).send('Invalid signature');
   }
-  
   if (req.method === 'POST') {
     // Handle WeChat event push
     console.log('post query:', req.query);
@@ -87,7 +86,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // Get raw XML body
         const rawBody = await getRawBody(req);
         const xmlBody = rawBody.toString('utf-8');
-        console.log('xmlBody:', xmlBody);
+        const xmlData = await parseStringPromise(xmlBody, { explicitArray: false });
+        console.log('xmlData:', xmlData);
         return res.status(200).send('success');
       } catch (error) {
         console.error('Error handling WeChat event:', error);
@@ -95,7 +95,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     }
   }
-  
   return res.status(405).send('Method Not Allowed');
 }
 
