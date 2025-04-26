@@ -84,7 +84,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
     } else if (isInWechatCloud) {
       try {
-        const resMessage = processReq(req);
+        const resMessage = await processReq(req);
         console.log("resMessage", resMessage);
         return res.status(200).send(resMessage);
       } catch (error) {
