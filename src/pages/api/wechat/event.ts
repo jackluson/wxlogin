@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log('query:', req.query);
     // console.log('WECHAT_TOKEN:', process.env.WECHAT_TOKEN);
     const { signature, timestamp, nonce, echostr } = req.query;
-    
+    console.log('token:', process.env.WECHAT_TOKEN);
     if (
       typeof signature === 'string' &&
       typeof timestamp === 'string' &&
