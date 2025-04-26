@@ -10,12 +10,14 @@
   },
   "dependencies": {
     "axios": "^1.5.0",
+    "expiry-map": "^2.0.0",
     "jsonwebtoken": "^9.0.2",
     "next": "^13.4.19",
     "raw-body": "^2.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "redis": "^4.6.10",
+    "tsx": "^4.19.3",
     "xml2js": "^0.6.2"
   },
   "devDependencies": {
@@ -31,4 +33,4 @@
     "tailwindcss": "^3.3.3",
     "typescript": "^5.2.2"
   }
-} 
+}

@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getUserInfoByCode } from '../../../lib/redis';
+// import { getUserInfoByCode } from '../../../lib/redis';
+import { getCache } from '../../../lib/cache';
 import { generateToken } from '../../../lib/auth';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -15,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   
   try {
     // Get user info from Redis
-    const userInfo = await getUserInfoByCode(code);
+    const userInfo = await getCache(`wechat:verification:${code}`);
     
     if (!userInfo) {
       return res.status(400).json({ error: 'Invalid or expired verification code' });

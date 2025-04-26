@@ -1,8 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { validateSignature, generateVerificationCode, sendTextMessage, getUserInfo } from '../../../lib/wechat';
-import { storeVerificationCode } from '../../../lib/redis';
+// import { storeVerificationCode } from '../../../lib/redis';
 import getRawBody from 'raw-body';
 import { parseStringPromise } from 'xml2js';
+import { setCache } from '../../../lib/cache';
 
 const processReq = async (req: NextApiRequest) => {
   // Get raw XML body
@@ -24,7 +25,7 @@ const processReq = async (req: NextApiRequest) => {
     console.log('userInfo:', userInfo);
 
     // Store code and user info in Redis (valid for 5 minutes)
-    await storeVerificationCode(code, userInfo, 300);
+    setCache(`wechat:verification:${code}`, userInfo);
 
     // Send verification code to user
     const replyMessage = sendTextMessage(
