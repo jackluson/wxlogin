@@ -12,7 +12,6 @@ export default function Login() {
   
   async function handleVerify(e: React.FormEvent) {
     e.preventDefault();
-    
     if (code.length !== 6) {
       setError('请输入6位验证码');
       return;
