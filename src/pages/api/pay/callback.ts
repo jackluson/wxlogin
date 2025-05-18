@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { TokenPayload, withAuth } from '@/lib/auth';
-import { getPayOrder } from '@/lib/pay';
 import { SDK } from '@/lib/subscription';
 
 async function handler(req: NextApiRequest, res: NextApiResponse){
