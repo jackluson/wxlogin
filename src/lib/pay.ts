@@ -27,7 +27,7 @@ async function getWechatOpenId() {
   const searchParams:Record<string,any> = {
     "mch_id": MCH_ID,
     "timestamp": Math.round(Date.now() / 1000).toString(),
-    "callback_url": "http://test-run.imflow-ai.com/pay/callback",
+    "callback_url": "http://test-run.imflow-ai.com/api/pay/callback",
     // "attach": "自定义数据",
     // "time_expire": "5m",
     // "sign": "B7337098E280841EB5F4D28261B60C07"
@@ -51,7 +51,7 @@ const createLTPayQrcode=  async () => {
   const searchParams:Record<string,any> = {
     "body": "Image形象店-深圳腾大-QQ公仔",
     "mch_id": MCH_ID,
-    "notify_url": "http://test-run.imflow-ai.com/pay/callback",
+    "notify_url": "http://test-run.imflow-ai.com/api/pay/callback",
     "out_trade_no": "LTZF20250532323096",
     "timestamp": Math.round(Date.now() / 1000).toString(),
     "total_fee": "0.1",
@@ -72,7 +72,7 @@ const createLTPayQrcode=  async () => {
   // return request.post(url, { headers, body: urlSearchParams })
 }
 
-const getPayOrder=  async () => {
+export const getPayOrder=  async (trade_no:string) => {
   const url = payBaseUrl + '/wxpay/get_pay_order'
 
   const headers = {
@@ -81,7 +81,7 @@ const getPayOrder=  async () => {
 
   const searchParams:Record<string,any> = {
     "mch_id": MCH_ID,
-    "out_trade_no": "LTZF20250532323096",
+    "out_trade_no": trade_no,
     "timestamp": Math.round(Date.now() / 1000).toString()
     // "attach": "自定义数据",
     // "time_expire": "5m",
