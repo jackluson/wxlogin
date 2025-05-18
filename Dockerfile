@@ -3,8 +3,7 @@ FROM node:22-alpine AS base
 # Install dependencies only when needed
 FROM base AS deps
 WORKDIR /app
-COPY package.json package-lock.json* ./
-COPY .npmrc ./
+COPY package.json .npmrc package-lock.json* ./
 RUN npm ci
 
 # Rebuild the source code only when needed
