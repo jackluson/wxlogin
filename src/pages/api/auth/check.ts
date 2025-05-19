@@ -3,6 +3,7 @@ import { SDK } from '@/lib/subscription';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 async function handler(req: NextApiRequest, res: NextApiResponse, user:TokenPayload) {
+  console.log('openid', user.openid)
   const subInfo = await SDK.plan.getAvailablePlan(user.openid);
 
   // Return user info

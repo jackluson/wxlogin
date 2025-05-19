@@ -2,6 +2,6 @@ import { SubscriptionSDK } from '@imflow/subscription-sdk';
 
 
 export const SDK = new SubscriptionSDK({
-  appKey: 'anchor-arbitrage-toolbox',
+  appKey: process.env.APPKEY,
   baseUrl: process.env.SUBSCRIBE_URL,
 });
