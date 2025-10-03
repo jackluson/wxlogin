@@ -5,17 +5,19 @@ import { WechatUserInfo } from './wechat';
 const JWT_SECRET = process.env.JWT_SECRET || 'wxlogin-secret-key';
 
 export interface TokenPayload {
-  openid: string;
+  uniqueId: string;
+  source: string;
   iat?: number;
   exp?: number;
 }
 
 // Generate JWT token
-export function generateToken(userInfo: WechatUserInfo): string {
+export function generateToken(uniqueId: string, source?: string): string {
+  const info = { uniqueId: uniqueId, source }
   return jwt.sign(
-    { openid: userInfo.openid },
+    info,
     JWT_SECRET,
-    { expiresIn: '3d' }
+    { expiresIn: '7d' }
   );
 }
 

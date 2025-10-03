@@ -17,7 +17,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse, user:TokenPayl
       status: payOrder.status
     },
     user: {
-      openid: payOrder.userId,
+      uniqueId: payOrder.userId,
     },
   });
 }

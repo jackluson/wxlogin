@@ -3,14 +3,15 @@ import { SDK } from '@/lib/subscription';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 async function handler(req: NextApiRequest, res: NextApiResponse, user:TokenPayload) {
-  console.log('openid', user.openid)
-  const availablePlans = await SDK.plan.getAvailablePlan(user.openid);
+  console.log('user', user)
+  const uniqueId = user.uniqueId || (user as any).openid;// 兼容之前微信登录
+  const availablePlans = await SDK.plan.getAvailablePlan(uniqueId);
 
   // Return user info
   return res.status(200).json({
     success: true,
     user: {
-      openid: user.openid,
+      uniqueId: user.uniqueId,
     },
     availablePlans,
   });
