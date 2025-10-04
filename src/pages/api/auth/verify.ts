@@ -7,6 +7,7 @@ import { SDK } from '@/lib/subscription';
 export enum SourceEnum {
   wechat = 'wechat',
   google = 'google',
+  microsoft = 'microsoft'
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -14,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  const { source = SourceEnum.wechat, code, email, } = req.body;
+  const { source = SourceEnum.wechat, code, email, uniqueId: id } = req.body;
   console.log("req.body", req.body);
   
   if (!code || typeof code !== 'string') {
@@ -23,15 +24,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   
   try {
     let userInfo = null
-    let uniqueId = ''
+    let uniqueId = id
     if(source === SourceEnum.wechat) {
       // Get user info from Redis
       userInfo = await getCache(`wechat:verification:${code}`);
       uniqueId = userInfo.openid;
-    } else if(source=== SourceEnum.google && email) {
+    } else if(source === SourceEnum.google && email) {
       uniqueId = email
       userInfo  = {
         email,
+      }
+    } else if(source && uniqueId) {
+      userInfo  = {
+        uniqueId,
       }
     }
     if (!userInfo || !uniqueId) {
