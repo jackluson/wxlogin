@@ -44,7 +44,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     // Generate JWT token
     const token = generateToken(uniqueId, source);
-    const availablePlans = await SDK.plan.getAvailablePlan(uniqueId);
+    const params = [uniqueId, source] as unknown as [string]
+    const availablePlans = await SDK.plan.getAvailablePlan(...params);
     // Return user info and token
     return res.status(200).json({
       success: true,
