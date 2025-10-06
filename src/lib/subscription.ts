@@ -1,4 +1,4 @@
-import { SubscriptionSDK } from '@imflow/subscription-sdk';
+import { SubscriptionSDK } from '@jackluson/subscription-sdk';
 
 
 export const SDK = new SubscriptionSDK({

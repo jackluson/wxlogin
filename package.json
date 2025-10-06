@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@imflow/subscription-sdk": "^1.1.0",
+    "@jackluson/subscription-sdk": "^1.1.2",
     "axios": "^1.5.0",
     "expiry-map": "^2.0.0",
     "jsonwebtoken": "^9.0.2",
