@@ -37,17 +37,13 @@ export function withAuth(
   return async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const token = req.headers.authorization?.replace('Bearer ', '');
-      
       if (!token) {
         return res.status(401).json({ error: 'Authentication required' });
       }
-      
       const user = verifyToken(token);
-      
       if (!user) {
         return res.status(401).json({ error: 'Invalid or expired token' });
       }
-      
       return await handler(req, res, user);
     } catch (error) {
       console.error('Auth error:', error);

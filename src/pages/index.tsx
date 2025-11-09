@@ -7,23 +7,28 @@ const DEV_MODE = process.env.NEXT_PUBLIC_DEV_MODE === 'true';
 export default function Home() {
   const router = useRouter();
   
-  // useEffect(() => {
-  //   // 开发模式直接进入仪表盘
-  //   if (DEV_MODE) {
-  //     router.replace('/dashboard');
-  //     return;
-  //   }
+  useEffect(() => {
+    // 开发模式直接进入仪表盘
+    if (DEV_MODE) {
+      router.replace('/dashboard');
+      return;
+    }
+
+    const href = window.location.href;
+    if(href.includes('imflow-ai.com')) {
+      return
+    }
     
-  //   const token = localStorage.getItem('auth_token');
-  //   if (token) {
-  //     router.replace('/dashboard');
-  //   } else {
-  //     router.replace('/login');
-  //   }
-  // }, [router]);
+    const token = localStorage.getItem('auth_token');
+    if (token) {
+      router.replace('/dashboard');
+    } else {
+      router.replace('/login');
+    }
+  }, [router]);
   
   return (
-    <div className="hidden items-center justify-center min-h-screen">
+    <div className="items-center justify-center min-h-screen">
       <div className="text-xl">Loading...</div>
     </div>
   );

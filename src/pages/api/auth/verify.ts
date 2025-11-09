@@ -28,7 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if(source === SourceEnum.wechat) {
       // Get user info from Redis
       userInfo = await getCache(`wechat:verification:${code}`);
-      uniqueId = userInfo.openid;
+      uniqueId = userInfo?.openid;
     } else if(source === SourceEnum.google && email) {
       uniqueId = email
       userInfo  = {
